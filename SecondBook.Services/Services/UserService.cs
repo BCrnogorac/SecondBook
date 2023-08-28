@@ -10,11 +10,9 @@ namespace SecondBook.Services.Services
     public class UserService : BaseService
     {
         private IdentityService identityService;
-        private IMapper mapper;
-        public UserService(SecondBookDBContext dbContext, IdentityService identityService, IMapper mapper) : base(dbContext)
+        public UserService(SecondBookDBContext dbContext, IdentityService identityService, IMapper mapper) : base(dbContext, mapper)
         {
             this.identityService = identityService;
-            this.mapper = mapper;
         }
 
         public IEnumerable<User> GetUsers()

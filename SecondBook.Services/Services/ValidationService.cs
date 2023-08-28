@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using FluentValidation.Results;
 using SecondBook.EF.Database;
 using SecondBook.Services.Models.BM;
@@ -8,7 +9,7 @@ namespace SecondBook.Services.Services
 {
     public class ValidationService : BaseService
     {
-        public ValidationService(SecondBookDBContext dbContext) : base(dbContext) { }
+        public ValidationService(SecondBookDBContext dbContext, IMapper mapperConfiguration) : base(dbContext, mapperConfiguration) { }
 
         public async Task<ValidationResult> ValidateRegister(RegisterBM model)
         {

@@ -14,6 +14,9 @@ namespace SecondBook.Services
             CreateMap<RegisterBM, User>()
                 .ForMember(dest => dest.HashedPassword, opt => opt.MapFrom(src => UserService.HashPassword(src.Password)))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Username));
+            CreateMap<Book, BookDTO>();
+            CreateMap<Category, CategoryDTO>();
+
         }
     }
 }
