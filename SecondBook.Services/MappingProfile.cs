@@ -16,6 +16,7 @@ namespace SecondBook.Services
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Username));
             CreateMap<Book, BookDTO>();
             CreateMap<Category, CategoryDTO>();
+            CreateMap<Author, AuthorDTO>();
 
         }
     }

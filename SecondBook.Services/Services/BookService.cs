@@ -15,19 +15,30 @@ namespace SecondBook.Services.Services
 
         public IEnumerable<BookDTO> GetBooks()
         {
-            var books = dbContext.Books.Include(b => b.Category).ToList();
+            var books = dbContext.Books.Include(b => b.Category).Include(b => b.Author).ToList();
             return mapper.Map<IEnumerable<BookDTO>>(books);
         }
 
-        public IEnumerable<BookDTO> GetBooksByCategoryId(int id)
+        public IEnumerable<BookDTO> GetBooks(int? categoryId, int? authorId)
         {
-            var books = dbContext.Books.Where( b => b.CategoryId == id).Include(b => b.Category).ToList();
+            var query = dbContext.Books.Include(b => b.Category).Include(b => b.Author).AsQueryable();
+
+            if (categoryId.HasValue)
+            {
+                query = query.Where(b => b.CategoryId == categoryId);
+            }
+
+            if (authorId.HasValue)
+            {
+                query = query.Where(b => b.AuthorId == authorId);
+            }
+            var books = query.ToList();
             return mapper.Map<IEnumerable<BookDTO>>(books);
         }
 
         public BookDTO GetBookById(int id)
         {
-            var book = dbContext.Books.Include(b => b.Category).FirstOrDefault(b => b.Id == id);
+            var book = dbContext.Books.Include(b => b.Category).Include(b => b.Author).FirstOrDefault(b => b.Id == id);
             return mapper.Map<BookDTO>(book);
         }
 
@@ -44,6 +55,7 @@ namespace SecondBook.Services.Services
                 Price = model.Price,
                 Description = model.Description,
                 CategoryId = model.CategoryId,
+                AuthorId = model.AuthorId,
                 PublishedDate = model.PublishedDate
             };
             dbContext.Books.Add(bookModel);
@@ -67,6 +79,7 @@ namespace SecondBook.Services.Services
             book.Price = model.Price;
             book.Description = model.Description;
             book.CategoryId = model.CategoryId;
+            book.AuthorId = model.AuthorId;
             book.PublishedDate = model.PublishedDate;
 
             dbContext.Books.Update(book);

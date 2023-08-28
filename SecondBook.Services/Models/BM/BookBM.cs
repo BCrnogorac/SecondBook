@@ -15,5 +15,6 @@ namespace SecondBook.Services.Models.BM
         public DateTime PublishedDate { get; set; }
         public int Price { get; set; }
         public int CategoryId { get; set; }
+        public int AuthorId { get; set; }
     }
 }

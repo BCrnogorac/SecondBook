@@ -21,10 +21,22 @@ namespace SecondBook.Web.Controllers
             return Ok(bookService.GetBooks());
         }
 
-        [HttpGet("type/{id}")]
-        public IActionResult GetBooksByCategoryId([FromRoute] int id)
+        [HttpGet("category/{categoryId}")]
+        public IActionResult GetBooksWithCategoryId([FromRoute] int? categoryid)
         {
-            return Ok(bookService.GetBooksByCategoryId(id));
+            return Ok(bookService.GetBooks(categoryid, null));
+        }
+
+        [HttpGet("author/{authorId}")]
+        public IActionResult GetBooksWithAuthorId([FromRoute] int? authorId)
+        {
+            return Ok(bookService.GetBooks(null, authorId));
+        }
+
+        [HttpGet("category/{categoryId}/author/{authorId}")]
+        public IActionResult GetBooks([FromRoute] int? categoryid, [FromRoute] int? authorId)
+        {
+            return Ok(bookService.GetBooks(categoryid, authorId));
         }
 
         [HttpGet("{id}")]

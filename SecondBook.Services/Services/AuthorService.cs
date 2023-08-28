@@ -11,30 +11,30 @@ using System.Threading.Tasks;
 
 namespace SecondBook.Services.Services
 {
-    public class CategoryService : BaseService
+    public class AuthorService : BaseService
     {
-        public CategoryService(SecondBookDBContext dbContext, IMapper mapperConfiguration) : base(dbContext, mapperConfiguration)
+        public AuthorService(SecondBookDBContext dbContext, IMapper mapperConfiguration) : base(dbContext, mapperConfiguration)
         {
         }
 
-        public IEnumerable<CategoryDTO> GetCategories()
+        public IEnumerable<AuthorDTO> GetAuthors()
         {
-            var categories = dbContext.Categories;
-            return mapper.Map<IEnumerable<CategoryDTO>>(categories);
+            var authors = dbContext.Authors;
+            return mapper.Map<IEnumerable<AuthorDTO>>(authors);
         }
 
-        public void InsertCategory(CategoryBM model)
+        public void InsertAuthor(AuthorBM model)
         {
-            if(model == null)
+            if (model == null)
             {
                 return;
             }
 
-            var categoryModel = new Category()
+            var authorModel = new Author()
             {
                 Name = model.Name
             };
-            dbContext.Categories.Add(categoryModel);
+            dbContext.Authors.Add(authorModel);
             dbContext.SaveChanges();
         }
     }

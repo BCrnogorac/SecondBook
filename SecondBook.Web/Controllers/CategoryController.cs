@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SecondBook.Services.Models.BM;
 using SecondBook.Services.Services;
 
 namespace SecondBook.Web.Controllers
@@ -18,6 +19,13 @@ namespace SecondBook.Web.Controllers
         public IActionResult GetCategories()
         {
             return Ok(this.categoryService.GetCategories());
+        }
+
+        [HttpPost]
+        public IActionResult InsertCategory([FromBody] CategoryBM model)
+        {
+            categoryService.InsertCategory(model);
+            return Ok();
         }
     }
 }

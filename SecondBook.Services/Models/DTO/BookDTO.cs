@@ -14,5 +14,6 @@ namespace SecondBook.Services.Models.DTO
         public DateTime PublishedDate { get; set; }
         public int Price { get; set; }
         public CategoryDTO Category { get; set; }
+        public AuthorDTO Author { get; set; }
     }
 }
