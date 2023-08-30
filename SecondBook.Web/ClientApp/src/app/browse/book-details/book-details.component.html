@@ -1,0 +1,46 @@
+<div
+  style="
+    margin-top: 80px;
+    margin-left: 140px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: top;
+  "
+>
+  <img
+    nz-image
+    width="350px"
+    height="500px"
+    src="{{ book?.imageUrl }}"
+    alt=""
+  />
+  <div>
+    <h1 style="margin-top: 50px; margin-left: 100px">
+      {{ book?.name }}
+    </h1>
+
+    <div style="display: flex; justify-content: space-between">
+      <h2 style="margin-left: 100px; margin-bottom: 20px">
+        {{ book?.author.name }}
+      </h2>
+
+      <h2 style="margin-left: 100px; margin-bottom: 20px">
+        {{ book?.price }}€
+      </h2>
+    </div>
+
+    <nz-card style="width: 800px; margin-left: 100px; margin-bottom: 20px">
+      <p>{{ book?.description }}</p>
+    </nz-card>
+
+    <button
+      nz-button
+      nzType="dashed"
+      [disabled]="!hasEnoughBookQuantity || isInCart"
+      style="width: 800px; margin-left: 100px; margin-bottom: 20px"
+      (click)="onAddToCart(book)"
+    >
+      {{ !isInCart ? "Add to cart" : "Added to cart!" }}
+    </button>
+  </div>
+</div>

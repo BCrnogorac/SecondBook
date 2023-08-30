@@ -1,0 +1,32 @@
+<h2 style="margin-top: 50px; margin-left: 100px; margin-bottom: 20px">Cart</h2>
+
+<div
+  style="
+    margin-top: 20px;
+    margin-left: 140px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: baseline;
+  "
+>
+  <ul
+    nz-list
+    [nzDataSource]="books"
+    nzBordered
+    nzSize="large"
+    style="width: 100%; margin-right: 300px"
+  >
+    <li nz-list-item *ngFor="let book of books" nzNoFlex>
+      <ul nz-list-item-actions>
+        <nz-list-item-action>
+          <span>{{ book?.price }}€</span>
+        </nz-list-item-action>
+      </ul>
+      {{ book?.name }}: {{ book?.author.name }}
+    </li>
+    <nz-list-footer style="display: flex; justify-content: space-between">
+      <span>Total price:</span>
+      <span>{{ totalPrice }}€</span>
+    </nz-list-footer>
+  </ul>
+</div>

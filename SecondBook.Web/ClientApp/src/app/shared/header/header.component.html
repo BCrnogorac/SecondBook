@@ -70,4 +70,18 @@
       <li nz-menu-item (click)="logout()">Logout</li>
     </ul>
   </li>
+
+  <li
+    routerLink="/cart"
+    nz-menu-item
+    style="float: right"
+    *ngIf="isAuthed"
+    [nzSelected]="cartRoute"
+  >
+    <nz-badge [nzCount]="cartNumber" nzSize="small">
+      <span nz-icon nzType="shopping-cart" nzTheme="outline"></span>
+      Cart
+      <span></span>
+    </nz-badge>
+  </li>
 </ul>

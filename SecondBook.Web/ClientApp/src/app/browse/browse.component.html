@@ -60,6 +60,7 @@
     nzHoverable
     style="width: 200px; margin-right: 20px; margin-top: 20px"
     [nzCover]="coverTemplate"
+    routerLink="/browse/book-details/{{ book.id }}"
   >
     <ng-template #coverTemplate>
       <img alt="example" [src]="book.imageUrl" style="height: 250px" />

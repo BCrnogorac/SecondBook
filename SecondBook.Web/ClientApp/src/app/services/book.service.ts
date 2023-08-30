@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { BookBM } from '../models/BM/bookBM.model';
 import { BookDto } from '../models/DTO/bookDto.model';
 
@@ -10,6 +10,8 @@ import { BookDto } from '../models/DTO/bookDto.model';
 })
 export class BookService {
   private serviceBaseUrl = '';
+
+  public booksInCart = new BehaviorSubject<BookDto[] | null>(null);
 
   constructor(
     public http: HttpClient,
@@ -45,6 +47,10 @@ export class BookService {
     return this.http.get<BookDto[]>(
       `${this.serviceBaseUrl}/category/${categoryId}`
     );
+  }
+
+  getBooksById(id: number): Observable<BookDto> {
+    return this.http.get<BookDto>(`${this.serviceBaseUrl}/${id}`);
   }
 
   getBooksByAuthorIdCategoryId(

@@ -5,6 +5,7 @@ import { AuthorService } from '../services/author.service';
 import { CategoryService } from '../services/category.service';
 import { AuthorDto } from '../models/DTO/authorDto.model';
 import { CategoryDto } from '../models/DTO/categoryDto.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-browse',
@@ -22,7 +23,8 @@ export class BrowseComponent implements OnInit {
   constructor(
     private bookService: BookService,
     private authorService: AuthorService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.getBooks();
@@ -97,5 +99,9 @@ export class BrowseComponent implements OnInit {
           this.books = response;
         });
     }
+  }
+
+  navigateToBookDetails(bookId: number) {
+    this.router.navigate[`/browse/book-details${bookId}`];
   }
 }

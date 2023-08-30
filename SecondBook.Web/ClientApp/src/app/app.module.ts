@@ -19,6 +19,8 @@ import { HomePageComponent } from './home-page/home-page/home-page.component';
 import { BrowseComponent } from './browse/browse.component';
 import { ProfileComponent } from './account/profile/profile.component';
 import { AdminDashboardComponent } from './account/admin-dashboard/admin-dashboard.component';
+import { BookDetailsComponent } from './browse/book-details/book-details.component';
+import { CartComponent } from './cart/cart.component';
 
 registerLocaleData(en);
 
@@ -33,6 +35,8 @@ registerLocaleData(en);
     BrowseComponent,
     ProfileComponent,
     AdminDashboardComponent,
+    BookDetailsComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { filter } from 'rxjs';
+import { BookService } from 'src/app/services/book.service';
+import { BookDto } from 'src/app/models/DTO/bookDto.model';
 
 @Component({
   selector: 'app-header',
@@ -16,21 +18,25 @@ export class HeaderComponent implements OnInit {
   nzFilterOption = (): boolean => true;
 
   //user or roles info
-  isAuthed: boolean = false;
-  companyRole: boolean = false;
-  adminRole: boolean = false;
+  public isAuthed: boolean = false;
+  public companyRole: boolean = false;
+  public adminRole: boolean = false;
 
-  homeRoute: boolean = true;
-  browseRoute: boolean = false;
-  registerRoute: boolean = false;
-  loginRoute: boolean = false;
-  profileRoute: boolean = false;
+  public homeRoute: boolean = true;
+  public browseRoute: boolean = false;
+  public registerRoute: boolean = false;
+  public loginRoute: boolean = false;
+  public profileRoute: boolean = false;
+  public cartRoute: boolean = false;
+
+  public cartNumber: number = 0;
 
   constructor(
     private httpClient: HttpClient,
     private authService: AuthService,
     private router: Router,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private bookService: BookService
   ) {}
 
   ngOnInit() {
@@ -42,6 +48,7 @@ export class HeaderComponent implements OnInit {
       this.isAuthed = this.authService.getUserProperty('role') != null;
       this.adminRole = this.authService.getUserProperty('role') == 'admin';
 
+      this.checkCartNumber();
       this.routeResolver();
     });
   }
@@ -70,6 +77,21 @@ export class HeaderComponent implements OnInit {
     this.message.success('Logged out.');
   }
 
+  checkCartNumber() {
+    let cart: BookDto[] = JSON.parse(localStorage.getItem('books'));
+    this.cartNumber = cart.length;
+
+    this.bookService.booksInCart.next(cart);
+
+    this.bookService.booksInCart.subscribe((response) => {
+      this.cartNumber = response.length;
+    });
+
+    if (this.cartNumber == null || undefined) {
+      this.cartNumber = 0;
+    }
+  }
+
   routeResolver() {
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
@@ -81,6 +103,7 @@ export class HeaderComponent implements OnInit {
             this.registerRoute = false;
             this.loginRoute = false;
             this.profileRoute = false;
+            this.cartRoute = false;
             break;
           case '/browse':
             this.homeRoute = false;
@@ -88,6 +111,7 @@ export class HeaderComponent implements OnInit {
             this.registerRoute = false;
             this.loginRoute = false;
             this.profileRoute = false;
+            this.cartRoute = false;
             break;
           case '/administration':
             this.homeRoute = false;
@@ -95,6 +119,7 @@ export class HeaderComponent implements OnInit {
             this.registerRoute = false;
             this.loginRoute = false;
             this.profileRoute = false;
+            this.cartRoute = false;
             break;
 
           case '/register':
@@ -103,6 +128,7 @@ export class HeaderComponent implements OnInit {
             this.registerRoute = true;
             this.loginRoute = false;
             this.profileRoute = false;
+            this.cartRoute = false;
             break;
           case '/login':
             this.homeRoute = false;
@@ -110,6 +136,7 @@ export class HeaderComponent implements OnInit {
             this.registerRoute = false;
             this.loginRoute = true;
             this.profileRoute = false;
+            this.cartRoute = false;
             break;
           case '/profile':
             this.homeRoute = false;
@@ -117,6 +144,7 @@ export class HeaderComponent implements OnInit {
             this.registerRoute = false;
             this.loginRoute = false;
             this.profileRoute = true;
+            this.cartRoute = false;
             break;
           case '/admin-dashboard':
             this.homeRoute = false;
@@ -124,6 +152,16 @@ export class HeaderComponent implements OnInit {
             this.registerRoute = false;
             this.loginRoute = false;
             this.profileRoute = true;
+            this.cartRoute = false;
+            break;
+
+          case '/cart':
+            this.homeRoute = false;
+            this.browseRoute = false;
+            this.registerRoute = false;
+            this.loginRoute = false;
+            this.profileRoute = false;
+            this.cartRoute = true;
             break;
         }
       });

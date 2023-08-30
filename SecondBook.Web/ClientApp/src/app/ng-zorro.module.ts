@@ -17,6 +17,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 import {
   StepBackwardOutline,
@@ -60,6 +61,7 @@ const icons: IconDefinition[] = [
     NzCollapseModule,
     NzNotificationModule,
     NzPopconfirmModule,
+    NzBadgeModule,
     NzIconModule.forChild(icons),
   ],
   exports: [
@@ -81,6 +83,7 @@ const icons: IconDefinition[] = [
     NzCollapseModule,
     NzNotificationModule,
     NzPopconfirmModule,
+    NzBadgeModule,
   ],
 })
 export class NgZorroModule {}
