@@ -34,4 +34,25 @@ export class BookService {
   deleteBookById(bookId: number): Observable<void> {
     return this.http.delete<void>(`${this.serviceBaseUrl}/${bookId}`);
   }
+
+  getBooksByAuthorId(authorId: number): Observable<BookDto[]> {
+    return this.http.get<BookDto[]>(
+      `${this.serviceBaseUrl}/author/${authorId}`
+    );
+  }
+
+  getBooksByCategoryId(categoryId: number): Observable<BookDto[]> {
+    return this.http.get<BookDto[]>(
+      `${this.serviceBaseUrl}/category/${categoryId}`
+    );
+  }
+
+  getBooksByAuthorIdCategoryId(
+    authorId: number,
+    categoryId: number
+  ): Observable<BookDto[]> {
+    return this.http.get<BookDto[]>(
+      `${this.serviceBaseUrl}/category/${categoryId}/author/${authorId}`
+    );
+  }
 }

@@ -1,1 +1,72 @@
-<p>browse works!</p>
+<h2 style="margin-top: 50px; margin-left: 100px; margin-bottom: 20px">
+  Browse SecondBooks.
+</h2>
+
+<div
+  style="
+    margin-top: 20px;
+    margin-left: 140px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: baseline;
+  "
+>
+  <label style="margin-right: 10px">Filter by Author: </label>
+  <nz-select
+    nzShowSearch
+    nzAllowClear
+    nzPlaceHolder="Select an author"
+    style="width: 300px"
+    [(ngModel)]="selectedAuthor"
+    (ngModelChange)="onFilteredByAuthor(selectedAuthor)"
+  >
+    <nz-option
+      *ngFor="let author of authors"
+      [nzLabel]="author.name"
+      [nzValue]="author.id"
+    ></nz-option>
+  </nz-select>
+
+  <label style="margin-right: 10px; margin-left: 50px"
+    >Filter by Category:
+  </label>
+  <nz-select
+    nzShowSearch
+    nzAllowClear
+    nzPlaceHolder="Select a Category"
+    style="width: 300px"
+    [(ngModel)]="selectedCategory"
+    (ngModelChange)="onFilteredByCategory(selectedCategory)"
+  >
+    <nz-option
+      *ngFor="let category of categories"
+      [nzLabel]="category.name"
+      [nzValue]="category.id"
+    ></nz-option>
+  </nz-select>
+</div>
+
+<div
+  style="
+    display: flex;
+    justify-content: left;
+    margin-left: 140px;
+    margin-top: 80px;
+    flex-wrap: wrap;
+  "
+>
+  <nz-card
+    *ngFor="let book of books"
+    nzHoverable
+    style="width: 200px; margin-right: 20px; margin-top: 20px"
+    [nzCover]="coverTemplate"
+  >
+    <ng-template #coverTemplate>
+      <img alt="example" [src]="book.imageUrl" style="height: 250px" />
+    </ng-template>
+
+    <nz-card-meta [nzTitle]="book.name"></nz-card-meta>
+    <p>{{ book.author.name }}</p>
+    <p>{{ book.price }} €</p>
+  </nz-card>
+</div>

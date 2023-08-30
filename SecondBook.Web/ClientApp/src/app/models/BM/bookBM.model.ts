@@ -1,8 +1,9 @@
 export class BookBM {
   name: string;
   description: string;
-  //publishedDate: Date;
+  imageUrl: string;
   price: number;
+  quantity: number;
   authorId: number;
   categoryId: number;
 }

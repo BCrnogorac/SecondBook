@@ -63,9 +63,10 @@ export class AdminDashboardComponent implements OnInit {
   initBookForm(): void {
     this.bookFormGroup = this.fb.group({
       name: ['', [Validators.required]],
+      imageUrl: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      //publishedDate: ['', [Validators.required]],
       price: ['', [Validators.required]],
+      quantity: ['', [Validators.required]],
       categoryId: ['', [Validators.required]],
       authorId: ['', [Validators.required]],
     });
@@ -201,8 +202,9 @@ export class AdminDashboardComponent implements OnInit {
     this.bookFormGroup = this.fb.group({
       name: [book.name, [Validators.required]],
       description: [book.description, [Validators.required]],
-      //publishedDate: ['', [Validators.required]],
+      imageUrl: [book.imageUrl, [Validators.required]],
       price: [book.price, [Validators.required]],
+      quantity: [book.quantity, [Validators.required]],
       categoryId: [book.category.id, [Validators.required]],
       authorId: [book.author.id, [Validators.required]],
     });

@@ -186,6 +186,13 @@
           </nz-form-control>
         </nz-form-item>
 
+        <nz-form-item>
+          <nz-form-label nzRequired>ImageUrl</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="imageUrl" />
+          </nz-form-control>
+        </nz-form-item>
+
         <div style="display: flex; width: 100%">
           <nz-form-item style="width: inherit; margin-right: 16px">
             <nz-form-label nzRequired>Author Name</nz-form-label>
@@ -225,17 +232,24 @@
         </div>
 
         <div style="display: flex; width: 100%">
-          <!-- <nz-form-item style="width: inherit; margin-right: 16px">
-            <nz-form-label nzRequired>Date Published</nz-form-label>
-            <nz-form-control>
-              <input nz-input formControlName="publishedDate" type="datetime" />
-            </nz-form-control>
-          </nz-form-item> -->
-
-          <nz-form-item>
+          <nz-form-item style="width: inherit; margin-right: 16px">
             <nz-form-label nzRequired>Price</nz-form-label>
-            <nz-form-control>
+            <nz-form-control style="display: flex; width: inherit">
               <input nz-input formControlName="price" type="number" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <span
+            nz-icon
+            nzType="euro"
+            nzTheme="outline"
+            style="margin-top: 35px; font-size: 24px; margin-left: -10px"
+          ></span>
+
+          <nz-form-item style="width: inherit; margin-left: 16px">
+            <nz-form-label nzRequired>Quantity</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="quantity" type="number" />
             </nz-form-control>
           </nz-form-item>
         </div>

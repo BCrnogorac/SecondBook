@@ -5,8 +5,9 @@ export class BookDto {
   id: number;
   name: string;
   description: string;
-  publishedDate: Date;
+  imageUrl: string;
   price: number;
+  quantity: number;
   category: CategoryDto;
   author: AuthorDto;
 }
