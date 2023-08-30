@@ -54,9 +54,10 @@ namespace SecondBook.Services.Services
                 Name = model.Name,
                 Price = model.Price,
                 Description = model.Description,
+                ImageUrl = model.ImageUrl,
+                Quantity = model.Quantity,
                 CategoryId = model.CategoryId,
                 AuthorId = model.AuthorId,
-                //PublishedDate = model.PublishedDate
             };
             dbContext.Books.Add(bookModel);
             dbContext.SaveChanges();
@@ -78,9 +79,10 @@ namespace SecondBook.Services.Services
             book.Name = model.Name;
             book.Price = model.Price;
             book.Description = model.Description;
+            book.ImageUrl = model.ImageUrl;
+            book.Quantity = model.Quantity;
             book.CategoryId = model.CategoryId;
             book.AuthorId = model.AuthorId;
-            //book.PublishedDate = model.PublishedDate;
 
             dbContext.Books.Update(book);
             dbContext.SaveChanges();
