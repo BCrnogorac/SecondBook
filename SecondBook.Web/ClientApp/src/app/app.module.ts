@@ -17,8 +17,8 @@ import { AuthComponent } from './auth/auth.component';
 import { RegisterComponent } from './register/register.component';
 import { HomePageComponent } from './home-page/home-page/home-page.component';
 import { BrowseComponent } from './browse/browse.component';
-import { AboutComponent } from './about/about.component';
 import { ProfileComponent } from './account/profile/profile.component';
+import { AdminDashboardComponent } from './account/admin-dashboard/admin-dashboard.component';
 
 registerLocaleData(en);
 
@@ -31,8 +31,8 @@ registerLocaleData(en);
     RegisterComponent,
     HomePageComponent,
     BrowseComponent,
-    AboutComponent,
     ProfileComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     BrowserModule,

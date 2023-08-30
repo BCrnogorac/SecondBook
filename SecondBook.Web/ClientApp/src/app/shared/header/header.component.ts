@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { UserModel } from 'src/app/models/user.model';
 import { filter } from 'rxjs';
 
 @Component({
@@ -23,7 +22,6 @@ export class HeaderComponent implements OnInit {
 
   homeRoute: boolean = true;
   browseRoute: boolean = false;
-  aboutRoute: boolean = false;
   registerRoute: boolean = false;
   loginRoute: boolean = false;
   profileRoute: boolean = false;
@@ -80,7 +78,6 @@ export class HeaderComponent implements OnInit {
           case '/home':
             this.homeRoute = true;
             this.browseRoute = false;
-            this.aboutRoute = false;
             this.registerRoute = false;
             this.loginRoute = false;
             this.profileRoute = false;
@@ -88,7 +85,6 @@ export class HeaderComponent implements OnInit {
           case '/browse':
             this.homeRoute = false;
             this.browseRoute = true;
-            this.aboutRoute = false;
             this.registerRoute = false;
             this.loginRoute = false;
             this.profileRoute = false;
@@ -96,23 +92,14 @@ export class HeaderComponent implements OnInit {
           case '/administration':
             this.homeRoute = false;
             this.browseRoute = false;
-            this.aboutRoute = false;
             this.registerRoute = false;
             this.loginRoute = false;
             this.profileRoute = false;
             break;
-          case '/about':
-            this.homeRoute = false;
-            this.browseRoute = false;
-            this.aboutRoute = true;
-            this.registerRoute = false;
-            this.loginRoute = false;
-            this.profileRoute = false;
-            break;
+
           case '/register':
             this.homeRoute = false;
             this.browseRoute = false;
-            this.aboutRoute = false;
             this.registerRoute = true;
             this.loginRoute = false;
             this.profileRoute = false;
@@ -120,7 +107,6 @@ export class HeaderComponent implements OnInit {
           case '/login':
             this.homeRoute = false;
             this.browseRoute = false;
-            this.aboutRoute = false;
             this.registerRoute = false;
             this.loginRoute = true;
             this.profileRoute = false;
@@ -128,7 +114,13 @@ export class HeaderComponent implements OnInit {
           case '/profile':
             this.homeRoute = false;
             this.browseRoute = false;
-            this.aboutRoute = false;
+            this.registerRoute = false;
+            this.loginRoute = false;
+            this.profileRoute = true;
+            break;
+          case '/admin-dashboard':
+            this.homeRoute = false;
+            this.browseRoute = false;
             this.registerRoute = false;
             this.loginRoute = false;
             this.profileRoute = true;

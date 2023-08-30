@@ -1,0 +1,318 @@
+<div style="display: flex; justify-content: center">
+  <div style="width: 75%">
+    <div style="margin-top: 70px">
+      <h2 style="margin-bottom: 30px">Author settings</h2>
+
+      <h3 style="margin-bottom: 10px">Add Author</h3>
+      <form
+        nz-form
+        [formGroup]="authorFormGroup"
+        (ngSubmit)="submitAuthorForm()"
+        nzLayout="inline"
+      >
+        <nz-form-item style="width: 70%">
+          <nz-form-label nzRequired>Author Name</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="name" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <button nz-button nzType="primary">Submit</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+
+      <div>
+        <h3
+          [ngStyle]="{ 'margin-bottom.px': 16 }"
+          style="margin-bottom: 30px; margin-top: 30px"
+        >
+          Author List
+        </h3>
+
+        <ul
+          nz-list
+          [nzDataSource]="authors"
+          nzBordered
+          nzSize="large"
+          style="margin-right: 200px"
+        >
+          <li nz-list-item *ngFor="let author of authors" nzNoFlex>
+            <ul nz-list-item-actions>
+              <nz-list-item-action>
+                <button
+                  nzType="primary"
+                  nz-popconfirm
+                  nz-popconfirm
+                  nzPopconfirmTitle="Are you sure delete this author?"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="deleteAuthor(author)"
+                  (nzOnCancel)="cancel()"
+                  nz-button
+                  nzType="primary"
+                  nzShape="circle"
+                  style="margin-top: -10px"
+                >
+                  <span
+                    nz-icon
+                    nzType="minus"
+                    nzTheme="outline"
+                    style="align-items: right"
+                  ></span>
+                </button>
+              </nz-list-item-action>
+            </ul>
+            <ul nz-list-item-actions>
+              <nz-list-item-action>
+                <button
+                  nz-button
+                  nzType="primary"
+                  nzShape="circle"
+                  style="margin-top: -10px; margin-right: -50px"
+                >
+                  <span nz-icon nzType="edit" nzTheme="outline"></span>
+                </button>
+              </nz-list-item-action>
+            </ul>
+            {{ author.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <nz-divider style="margin-top: 50px; margin-bottom: 50px"></nz-divider>
+
+    <div style="margin-top: 20px">
+      <h2 style="margin-bottom: 30px">Book Category settings</h2>
+
+      <h3 style="margin-bottom: 10px">Add Category</h3>
+      <form
+        nz-form
+        [formGroup]="categoryFormGroup"
+        (ngSubmit)="submitCategoryForm()"
+        nzLayout="inline"
+      >
+        <nz-form-item style="width: 70%">
+          <nz-form-label nzRequired>Category Name</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="name" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <button nz-button nzType="primary">Submit</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+
+      <div>
+        <h3
+          [ngStyle]="{ 'margin-bottom.px': 16 }"
+          style="margin-bottom: 30px; margin-top: 30px"
+        >
+          Category List
+        </h3>
+
+        <ul
+          nz-list
+          [nzDataSource]="authors"
+          nzBordered
+          nzSize="large"
+          style="margin-right: 200px"
+        >
+          <li nz-list-item *ngFor="let category of categories" nzNoFlex>
+            <ul nz-list-item-actions>
+              <nz-list-item-action>
+                <button
+                  nzType="primary"
+                  nz-popconfirm
+                  nz-popconfirm
+                  nzPopconfirmTitle="Are you sure delete this category?"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="deleteCategory(category)"
+                  (nzOnCancel)="cancel()"
+                  nz-button
+                  nzType="primary"
+                  nzShape="circle"
+                  style="margin-top: -10px"
+                >
+                  <span
+                    nz-icon
+                    nzType="minus"
+                    nzTheme="outline"
+                    style="align-items: right"
+                  ></span>
+                </button>
+              </nz-list-item-action>
+            </ul>
+            <ul nz-list-item-actions>
+              <nz-list-item-action>
+                <button
+                  nz-button
+                  nzType="primary"
+                  nzShape="circle"
+                  style="margin-top: -10px; margin-right: -50px"
+                >
+                  <span nz-icon nzType="edit" nzTheme="outline"></span>
+                </button>
+              </nz-list-item-action>
+            </ul>
+            {{ category.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <nz-divider style="margin-top: 50px; margin-bottom: 50px"></nz-divider>
+
+    <div style="margin-top: 20px; width: 80%">
+      <h2 style="margin-bottom: 30px">Books settings</h2>
+
+      <h3 style="margin-bottom: 10px">Add Book</h3>
+
+      <form
+        nz-form
+        [formGroup]="bookFormGroup"
+        (ngSubmit)="submitBookForm()"
+        nzLayout="vertical"
+      >
+        <nz-form-item>
+          <nz-form-label nzRequired>Book Name</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="name" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <div style="display: flex; width: 100%">
+          <nz-form-item style="width: inherit; margin-right: 16px">
+            <nz-form-label nzRequired>Author Name</nz-form-label>
+            <nz-form-control>
+              <nz-select
+                nzShowSearch
+                nzAllowClear
+                nzPlaceHolder="Select an author"
+                formControlName="authorId"
+              >
+                <nz-option
+                  *ngFor="let author of authors"
+                  [nzLabel]="author.name"
+                  [nzValue]="author.id"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item style="width: inherit; margin-left: 16px">
+            <nz-form-label nzRequired>Category Name</nz-form-label>
+            <nz-form-control>
+              <nz-select
+                nzShowSearch
+                nzAllowClear
+                nzPlaceHolder="Select a category"
+                formControlName="categoryId"
+              >
+                <nz-option
+                  *ngFor="let category of categories"
+                  [nzLabel]="category.name"
+                  [nzValue]="category.id"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div style="display: flex; width: 100%">
+          <!-- <nz-form-item style="width: inherit; margin-right: 16px">
+            <nz-form-label nzRequired>Date Published</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="publishedDate" type="datetime" />
+            </nz-form-control>
+          </nz-form-item> -->
+
+          <nz-form-item>
+            <nz-form-label nzRequired>Price</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="price" type="number" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <nz-form-item>
+          <nz-form-label nzRequired>Book Description</nz-form-label>
+          <nz-form-control>
+            <nz-textarea-count [nzMaxCharacterCount]="2000">
+              <textarea
+                formControlName="description"
+                nz-input
+                rows="2"
+                placeholder="Write a book description"
+              ></textarea>
+            </nz-textarea-count>
+          </nz-form-control>
+        </nz-form-item>
+
+        <div style="display: flex; justify-content: flex-end">
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button nzType="primary">Submit</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </form>
+
+      <div>
+        <h3 [ngStyle]="{ 'margin-bottom.px': 16 }" style="margin-bottom: 30px">
+          Book List
+        </h3>
+
+        <ul nz-list [nzDataSource]="authors" nzBordered nzSize="large">
+          <li nz-list-item *ngFor="let book of books" nzNoFlex>
+            <ul nz-list-item-actions>
+              <nz-list-item-action>
+                <button
+                  nzType="primary"
+                  nz-popconfirm
+                  nz-popconfirm
+                  nzPopconfirmTitle="Are you sure delete this book?"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="deleteBook(book)"
+                  (nzOnCancel)="cancel()"
+                  nz-button
+                  nzType="primary"
+                  nzShape="circle"
+                  style="margin-top: -10px"
+                >
+                  <span
+                    nz-icon
+                    nzType="minus"
+                    nzTheme="outline"
+                    style="align-items: right"
+                  ></span>
+                </button>
+              </nz-list-item-action>
+            </ul>
+            <ul nz-list-item-actions>
+              <nz-list-item-action>
+                <button
+                  nz-button
+                  nzType="primary"
+                  nzShape="circle"
+                  style="margin-top: -10px; margin-right: -50px"
+                  (click)="editBook(book)"
+                >
+                  <span nz-icon nzType="edit" nzTheme="outline"></span>
+                </button>
+              </nz-list-item-action>
+            </ul>
+            {{ book.name }}: {{ book.author.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <nz-divider style="margin-top: 50px; margin-bottom: 50px"></nz-divider>
+  </div>
+</div>

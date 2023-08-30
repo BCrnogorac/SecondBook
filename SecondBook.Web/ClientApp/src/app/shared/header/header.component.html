@@ -11,11 +11,6 @@
     Browse
   </li>
 
-  <li routerLink="/about" nz-menu-item [nzSelected]="aboutRoute">
-    <span nz-icon nzType="info-circle" nzTheme="outline"></span>
-    About
-  </li>
-
   <span>
     <nz-select
       nzShowSearch
@@ -69,6 +64,7 @@
   >
     <ul>
       <li routerLink="/profile" nz-menu-item>Account</li>
+      <li routerLink="/admin-dashboard" nz-menu-item>Admin Dashboard</li>
 
       <nz-divider></nz-divider>
       <li nz-menu-item (click)="logout()">Logout</li>
