@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SecondBook.EF.Database;
 using SecondBook.EF.Database.Models;
 using SecondBook.Services.Models.BM;
@@ -35,6 +36,25 @@ namespace SecondBook.Services.Services
                 Name = model.Name
             };
             dbContext.Authors.Add(authorModel);
+            dbContext.SaveChanges();
+        }
+
+        public void DeleteAuthorById(int id)
+        {
+            var author = dbContext.Authors.Find(id);
+            if(author != null)
+            {
+                dbContext.Authors.Remove(author);
+                dbContext.SaveChanges();
+            }
+        }
+
+        public void UpdateAuthor(AuthorBM model)
+        {
+            var author = dbContext.Authors.Find(model.Id);
+            author.Name = model.Name;
+
+            dbContext.Authors.Update(author);
             dbContext.SaveChanges();
         }
     }

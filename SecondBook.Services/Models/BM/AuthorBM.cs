@@ -8,6 +8,7 @@ namespace SecondBook.Services.Models.BM
 {
     public class AuthorBM
     {
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

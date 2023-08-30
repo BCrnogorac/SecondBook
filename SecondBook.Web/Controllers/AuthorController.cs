@@ -26,5 +26,19 @@ namespace SecondBook.Web.Controllers
             authorService.InsertAuthor(model);
             return Ok();
         }
+
+        [HttpPut]
+        public IActionResult UpdateAuthor([FromBody] AuthorBM model)
+        {
+            authorService.UpdateAuthor(model);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteAuthor([FromRoute] int id)
+        {
+            authorService.DeleteAuthorById(id);
+            return Ok();
+        }
     }
 }

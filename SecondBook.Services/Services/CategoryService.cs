@@ -37,5 +37,24 @@ namespace SecondBook.Services.Services
             dbContext.Categories.Add(categoryModel);
             dbContext.SaveChanges();
         }
+
+        public void DeleteCategoryById(int id)
+        {
+            var category = dbContext.Categories.Find(id);
+            if (category != null)
+            {
+                dbContext.Categories.Remove(category);
+                dbContext.SaveChanges();
+            }
+        }
+
+        public void UpdateCategory(CategoryBM model)
+        {
+            var category = dbContext.Categories.Find(model.Id);
+            category.Name = model.Name;
+
+            dbContext.Categories.Update(category);
+            dbContext.SaveChanges();
+        }
     }
 }

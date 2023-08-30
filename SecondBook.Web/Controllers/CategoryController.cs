@@ -27,5 +27,19 @@ namespace SecondBook.Web.Controllers
             categoryService.InsertCategory(model);
             return Ok();
         }
+
+        [HttpPut]
+        public IActionResult UpdateCategory([FromBody] CategoryBM model)
+        {
+            categoryService.UpdateCategory(model);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCategory([FromRoute] int id)
+        {
+            categoryService.DeleteCategoryById(id);
+            return Ok();
+        }
     }
 }
