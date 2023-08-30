@@ -56,7 +56,7 @@ namespace SecondBook.Services.Services
                 Description = model.Description,
                 CategoryId = model.CategoryId,
                 AuthorId = model.AuthorId,
-                PublishedDate = model.PublishedDate
+                //PublishedDate = model.PublishedDate
             };
             dbContext.Books.Add(bookModel);
             dbContext.SaveChanges();
@@ -80,7 +80,7 @@ namespace SecondBook.Services.Services
             book.Description = model.Description;
             book.CategoryId = model.CategoryId;
             book.AuthorId = model.AuthorId;
-            book.PublishedDate = model.PublishedDate;
+            //book.PublishedDate = model.PublishedDate;
 
             dbContext.Books.Update(book);
             dbContext.SaveChanges();
