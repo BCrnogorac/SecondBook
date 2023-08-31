@@ -26,6 +26,7 @@ namespace SecondBook.Web
             builder.Services.AddScoped<CategoryService>();
             builder.Services.AddScoped<BookService>();
             builder.Services.AddScoped<AuthorService>();
+            builder.Services.AddScoped<OrderService>();
             builder.Services.AddAutoMapper(typeof(MappingProfile));
 
             var jwtSettings = builder.Configuration.GetSection<JwtSettings>(GlobalConstants.JWT_SETTINGS_KEY);

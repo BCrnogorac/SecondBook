@@ -9,6 +9,7 @@ namespace SecondBook.EF.Database
         public DbSet<Category> Categories { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,6 +29,16 @@ namespace SecondBook.EF.Database
                 .WithMany(e => e.Books)
                 .HasForeignKey(e => e.AuthorId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.Orders)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Book>()
+                .HasMany(e => e.Orders)
+                .WithMany(e => e.Books);
         }
     }
 }

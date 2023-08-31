@@ -15,5 +15,7 @@ namespace SecondBook.EF.Database.Models
         [Required]
         public string Role { get; set; }
 
+        public ICollection<Order>? Orders { get; set; } = new List<Order>();
+
     }
 }
