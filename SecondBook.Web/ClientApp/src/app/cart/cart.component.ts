@@ -17,10 +17,31 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.bookService.booksInCart.subscribe((response) => {
       this.books = response;
+    });
 
+    if (this.books != null) {
       this.books.forEach((el) => {
         this.totalPrice += el.price;
       });
-    });
+    }
   }
+
+  removeBookFromCart(book: BookDto) {
+    let cart: BookDto[] = JSON.parse(localStorage.getItem('books'));
+
+    cart.splice(
+      cart.findIndex((e) => e.id === book.id),
+      1
+    );
+
+    this.bookService.booksInCart.next(cart);
+
+    localStorage.setItem('books', JSON.stringify(cart));
+
+    this.totalPrice = this.totalPrice - book.price;
+    console.log(book.price);
+    //console.log(this.totalPrice);
+  }
+
+  cancel() {}
 }

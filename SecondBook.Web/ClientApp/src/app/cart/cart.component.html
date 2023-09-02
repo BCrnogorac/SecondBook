@@ -16,13 +16,41 @@
     nzSize="large"
     style="width: 100%; margin-right: 300px"
   >
-    <li nz-list-item *ngFor="let book of books" nzNoFlex>
+    <li nz-list-item *ngFor="let book of books">
       <ul nz-list-item-actions>
         <nz-list-item-action>
           <span>{{ book?.price }}€</span>
+          <button
+            nzType="primary"
+            nz-popconfirm
+            nz-popconfirm
+            nzPopconfirmTitle="Are you sure delete this book from your cart?"
+            nzPopconfirmPlacement="bottom"
+            (nzOnConfirm)="removeBookFromCart(book)"
+            (nzOnCancel)="cancel()"
+            nz-button
+            nzType="primary"
+            nzShape="circle"
+            style="margin-top: -10px; margin-left: 20px"
+          >
+            <span
+              nz-icon
+              nzType="minus"
+              nzTheme="outline"
+              style="align-items: right"
+            ></span>
+          </button>
         </nz-list-item-action>
       </ul>
-      {{ book?.name }}: {{ book?.author.name }}
+      <div>
+        <img [src]="book.imageUrl" style="width: 50px; margin-right: 10px" />
+        <span style="font-weight: bold"
+          >{{ book?.name }}:
+          <span style="font-weight: lighter">
+            {{ book?.author.name }}
+          </span>
+        </span>
+      </div>
     </li>
     <nz-list-footer style="display: flex; justify-content: space-between">
       <span>Total price:</span>

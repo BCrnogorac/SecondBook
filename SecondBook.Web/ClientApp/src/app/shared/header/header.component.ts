@@ -79,12 +79,13 @@ export class HeaderComponent implements OnInit {
 
   checkCartNumber() {
     let cart: BookDto[] = JSON.parse(localStorage.getItem('books'));
-    this.cartNumber = cart.length;
+
+    this.cartNumber = cart == null ? 0 : cart.length;
 
     this.bookService.booksInCart.next(cart);
 
     this.bookService.booksInCart.subscribe((response) => {
-      this.cartNumber = response.length;
+      this.cartNumber = response == null ? 0 : response.length;
     });
 
     if (this.cartNumber == null || undefined) {
