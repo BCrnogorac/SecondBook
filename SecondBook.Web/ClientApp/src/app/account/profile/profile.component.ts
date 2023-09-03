@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderBM } from 'src/app/models/BM/orderBM.model';
-import { BookDto } from 'src/app/models/DTO/bookDto.model';
 import { OrderDto } from 'src/app/models/DTO/orderDto.model';
 import { UserDto } from 'src/app/models/DTO/userDto.model';
+import { BookOrder } from 'src/app/models/bookOrder.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { OrderService } from 'src/app/services/order.service';
 import { IdEncryptor } from 'src/app/shared/idEncrypt.helper';
@@ -15,7 +14,7 @@ import { IdEncryptor } from 'src/app/shared/idEncrypt.helper';
 export class ProfileComponent implements OnInit {
   public user: UserDto = null;
   public orders: OrderDto[];
-  public books: BookDto[];
+  public books: BookOrder[];
   public totalPrice: number = 0;
 
   public selectedOrder: any;
@@ -30,7 +29,7 @@ export class ProfileComponent implements OnInit {
       this.user = response;
 
       this.orderService.getOrderByUserId(this.user.id).subscribe((response) => {
-        console.log(this.orders);
+        console.log(response);
         this.orders = response;
         this.books = [];
       });
@@ -44,9 +43,8 @@ export class ProfileComponent implements OnInit {
   }
 
   onOrderClicked(orderId: number) {
-    console.log(this.orders[orderId]);
-    this.books = this.orders[orderId].books;
-    console.log(this.books);
-    this.totalPrice = this.orders[orderId].price;
+    console.log(orderId);
+    this.books = this.orders.find((e) => e.id === orderId).bookOrders;
+    this.totalPrice = this.orders.find((e) => e.id === orderId).price;
   }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BookOrderBM } from 'src/app/models/BM/bookorderBM.model';
 import { OrderBM } from 'src/app/models/BM/orderBM.model';
 import { BookDto } from 'src/app/models/DTO/bookDto.model';
@@ -14,7 +14,7 @@ import { BookService } from 'src/app/services/book.service';
   styleUrls: ['./book-details.component.css'],
 })
 export class BookDetailsComponent implements OnInit {
-  public bookId: number;
+  @Input() bookId: number;
 
   public book: BookDto = null;
   public cartBooks: BookDto[] = [];
@@ -27,15 +27,21 @@ export class BookDetailsComponent implements OnInit {
   constructor(
     private bookService: BookService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     console.log(+this.router.url.split('?')[0].split('/').pop());
-    this.bookId = +this.router.url.split('?')[0].split('/').pop();
 
-    this.getBookById(this.bookId);
-    this.checkCart();
+    this.route.paramMap.subscribe((params) => {
+      this.bookId = +params.get('id');
+
+      this.getBookById(this.bookId);
+      this.checkCart();
+    });
+
+    //this.bookId = +this.router.url.split('?')[0].split('/').pop();
   }
 
   getBookById(bookId: number) {

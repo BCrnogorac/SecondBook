@@ -40,7 +40,13 @@
       style="width: 800px; margin-left: 100px; margin-bottom: 20px"
       (click)="onAddToCart(book)"
     >
-      {{ !isInCart ? "Add to cart" : "Added to cart!" }}
+      {{
+        !hasEnoughBookQuantity
+          ? "Out of stock"
+          : !isInCart
+          ? "Add to cart"
+          : "Added to cart!"
+      }}
     </button>
   </div>
 </div>

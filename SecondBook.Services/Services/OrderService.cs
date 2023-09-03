@@ -33,7 +33,8 @@ namespace SecondBook.Services.Services
             {
                 return false;
             }
-            decimal totalPrice = books.Sum(book => book.Price);
+
+            decimal totalPrice = books.Sum(book => book.Price * model.BookOrders.First(bo => bo.BookID == book.Id).Quantity);
 
             var bookOrders = model.BookOrders.Select(b => new BookOrder()
             {

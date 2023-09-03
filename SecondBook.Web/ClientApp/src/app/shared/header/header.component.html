@@ -14,18 +14,17 @@
   <span>
     <nz-select
       nzShowSearch
-      nzServerSearch
-      nzPlaceHolder="input search text"
-      [(ngModel)]="selectedValue"
+      nzAllowClear=""
+      nzPlaceHolder="Search for a book"
+      [(ngModel)]="selectedBook"
       [nzShowArrow]="false"
-      [nzFilterOption]="nzFilterOption"
-      (nzOnSearch)="search($event)"
+      (ngModelChange)="searchBook(selectedBook)"
       style="margin-left: 50px"
     >
       <nz-option
-        *ngFor="let o of listOfOption"
-        [nzLabel]="o.text"
-        [nzValue]="o.value"
+        *ngFor="let book of books"
+        [nzLabel]="book.name"
+        [nzValue]="book.id"
       ></nz-option>
     </nz-select>
   </span>

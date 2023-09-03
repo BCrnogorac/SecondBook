@@ -1,2 +1,50 @@
 <br />
-<div>This is homepage</div>
+<div
+  style="
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  "
+>
+  <h1>NOVO | Knjige</h1>
+  <nz-carousel nzAutoPlay>
+    <div nz-carousel-content *ngFor="let book of books">
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          margin-top: 20px;
+          flex-wrap: wrap;
+        "
+      >
+        <nz-card
+          nzHoverable
+          style="width: 200px"
+          [nzCover]="coverTemplate"
+          routerLink="/browse/book-details/{{ book.id }}"
+        >
+          <ng-template #coverTemplate>
+            <img alt="example" [src]="book.imageUrl" style="height: 250px" />
+          </ng-template>
+
+          <nz-card-meta [nzTitle]="book.name"></nz-card-meta>
+          <p>{{ book.author.name }}</p>
+          <p>{{ book.price }} €</p>
+        </nz-card>
+      </div>
+    </div>
+  </nz-carousel>
+
+  <div
+    style="
+      background-color: lightgray;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    "
+  >
+    <h3 style="color: black">Fiksni tečaj konverzije: 1 € = 7,53450 kn</h3>
+  </div>
+</div>

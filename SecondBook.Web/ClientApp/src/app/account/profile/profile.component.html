@@ -28,6 +28,7 @@
       nzPlaceHolder="Select an order to see details"
       [(ngModel)]="selectedOrder"
       (ngModelChange)="onOrderClicked(selectedOrder)"
+      style="width: 500px"
     >
       <nz-option
         *ngFor="let order of orders"
@@ -58,18 +59,21 @@
         <li nz-list-item *ngFor="let book of books">
           <ul nz-list-item-actions>
             <nz-list-item-action>
-              <span>{{ book?.price }}€</span>
+              <span>{{ book?.book.price }}€</span>
             </nz-list-item-action>
           </ul>
           <div>
+            <span style="font-size: 16px; font-weight: bold; color: gray"
+              >x{{ book?.quantity }}</span
+            >
             <img
-              [src]="book.imageUrl"
+              [src]="book?.book.imageUrl"
               style="width: 50px; margin-right: 10px; margin-left: 10px"
             />
             <span style="font-weight: bold"
-              >{{ book?.name }}:
+              >{{ book?.book.name }}:
               <span style="font-weight: lighter">
-                {{ book?.author.name }}
+                {{ book?.book.author.name }}
               </span>
             </span>
           </div>

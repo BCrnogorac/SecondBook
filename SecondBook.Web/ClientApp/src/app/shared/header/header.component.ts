@@ -14,10 +14,6 @@ import { Order } from 'src/app/models/order.model';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  selectedValue = null;
-  listOfOption: Array<{ value: string; text: string }> = [];
-  nzFilterOption = (): boolean => true;
-
   //user or roles info
   public isAuthed: boolean = false;
   public companyRole: boolean = false;
@@ -29,6 +25,10 @@ export class HeaderComponent implements OnInit {
   public loginRoute: boolean = false;
   public profileRoute: boolean = false;
   public cartRoute: boolean = false;
+
+  public books: BookDto[];
+
+  public selectedBook: any;
 
   public cartNumber: number = 0;
 
@@ -51,25 +51,21 @@ export class HeaderComponent implements OnInit {
 
       this.checkCartNumber();
       this.routeResolver();
+      this.getBooks();
     });
   }
 
-  search(value: string): void {
-    this.httpClient
-      .jsonp<{ result: Array<[string, string]> }>(
-        `https://suggest.taobao.com/sug?code=utf-8&q=${value}`,
-        'callback'
-      )
-      .subscribe((data) => {
-        const listOfOption: Array<{ value: string; text: string }> = [];
-        data.result.forEach((item) => {
-          listOfOption.push({
-            value: item[0],
-            text: item[0],
-          });
-        });
-        this.listOfOption = listOfOption;
-      });
+  getBooks() {
+    this.bookService.getBooks().subscribe((response) => {
+      this.books = response;
+    });
+  }
+
+  searchBook(bookId: number): void {
+    console.log('tu sam');
+    if (bookId != null) {
+      this.router.navigateByUrl(`/browse/book-details/${bookId}`);
+    }
   }
 
   logout() {
