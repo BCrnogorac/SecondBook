@@ -93,12 +93,17 @@ export class CartComponent implements OnInit {
   cancel() {}
 
   onAddBookOrderQuantity(bookId: number) {
-    this.orderInCart.find((e) => e.book.id === bookId).quantity += 1;
-    this.handleLocalStorage(bookId, true);
-    this.bookService.booksInCart.value.bookOrders = this.orderInCart;
-    this.totalPrice += this.orderInCart.find(
-      (e) => e.book.id === bookId
-    ).book.price;
+    if (
+      this.orderInCart.find((e) => e.book.id === bookId).quantity !=
+      this.books.find((e) => e.id === bookId).quantity
+    ) {
+      this.orderInCart.find((e) => e.book.id === bookId).quantity += 1;
+      this.handleLocalStorage(bookId, true);
+      this.bookService.booksInCart.value.bookOrders = this.orderInCart;
+      this.totalPrice += this.orderInCart.find(
+        (e) => e.book.id === bookId
+      ).book.price;
+    }
   }
 
   onSubstractBookOrderQuantity(bookId: number) {

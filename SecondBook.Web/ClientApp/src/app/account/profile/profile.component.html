@@ -15,26 +15,71 @@
     alt=""
   />
 
-  <div>
+  <div style="display: flex; flex-direction: column; align-items: baseline">
     <h1 style="margin-top: 50px; margin-left: 100px">
       {{ user?.name }}
     </h1>
 
     <h3 style="margin-left: 100px; margin-bottom: 20px">My Orders</h3>
 
-    <!--
-    <nz-card style="width: 800px; margin-left: 100px; margin-bottom: 20px">
-      <p>{{ book?.description }}</p>
-    </nz-card>
-
-    <button
-      nz-button
-      nzType="dashed"
-      [disabled]="!hasEnoughBookQuantity || isInCart"
-      style="width: 800px; margin-left: 100px; margin-bottom: 20px"
-      (click)="onAddToCart(book)"
+    <nz-select
+      nzShowSearch
+      nzAllowClear
+      nzPlaceHolder="Select an order to see details"
+      [(ngModel)]="selectedOrder"
+      (ngModelChange)="onOrderClicked(selectedOrder)"
     >
-      {{ !isInCart ? "Add to cart" : "Added to cart!" }}
-    </button> -->
+      <nz-option
+        *ngFor="let order of orders"
+        [nzLabel]="encrypt(order.id)"
+        [nzValue]="order.id"
+      ></nz-option>
+    </nz-select>
+
+    <div
+      style="
+        margin-top: 20px;
+        margin-left: 140px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        width: 1000px;
+      "
+    >
+      <ul
+        nz-list
+        [nzDataSource]="books"
+        nzBordered
+        nzSize="large"
+        style="width: 100%; margin-right: 300px"
+      >
+        <li nz-list-item *ngFor="let book of books">
+          <ul nz-list-item-actions>
+            <nz-list-item-action>
+              <span>{{ book?.price }}€</span>
+            </nz-list-item-action>
+          </ul>
+          <div>
+            <img
+              [src]="book.imageUrl"
+              style="width: 50px; margin-right: 10px; margin-left: 10px"
+            />
+            <span style="font-weight: bold"
+              >{{ book?.name }}:
+              <span style="font-weight: lighter">
+                {{ book?.author.name }}
+              </span>
+            </span>
+          </div>
+        </li>
+
+        <nz-list-footer style="display: flex; justify-content: space-between">
+          <span>Total price:</span>
+          <span style="font-weight: bold">{{ totalPrice }}€</span>
+        </nz-list-footer>
+      </ul>
+    </div>
   </div>
 </div>

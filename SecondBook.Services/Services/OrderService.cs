@@ -18,14 +18,20 @@ namespace SecondBook.Services.Services
         {
         }
 
-        public void InsertOrder(OrderBM model)
+        public bool InsertOrder(OrderBM model)
         {
             var bookIds = model.BookOrders.Select(bo => bo.BookID).ToList();
             var books = dbContext.Books.Where(x => bookIds.Contains(x.Id)).ToList();
 
-            if (model == null || books.Count == 0)
+            var notEnoughQuantity = books.Any(e =>
             {
-                return;
+                var quantity = model.BookOrders.FirstOrDefault(bo => bo.BookID == e.Id)?.Quantity;
+                return e.Quantity < quantity;
+            });
+
+            if (model == null || books.Count == 0 || notEnoughQuantity)
+            {
+                return false;
             }
             decimal totalPrice = books.Sum(book => book.Price);
 
@@ -45,11 +51,32 @@ namespace SecondBook.Services.Services
 
             dbContext.Orders.Add(orderModel);
             dbContext.SaveChanges();
+
+            
+            books.ForEach(e =>
+            {
+                var quantity = model.BookOrders.First(bo => bo.BookID == e.Id).Quantity;
+                e.Quantity -= quantity;
+            });
+            dbContext.UpdateRange(books);
+            dbContext.SaveChanges();
+
+            return true;
         }
 
         public IEnumerable<OrderDTO> GetOrdersByUserId(int id)
         {
-            var query = dbContext.Orders.Include(x => x.Books).Where(x => x.UserId == id).ToList();
+            var query = dbContext.Orders
+                .Include(x => x.BookOrders)
+                    .ThenInclude(b => b.Book)
+                        .ThenInclude(b => b.Category)
+                .Include(x => x.BookOrders)
+                    .ThenInclude(b => b.Book)
+                        .ThenInclude(b => b.Author)
+                
+                .Where(x => x.UserId == id)
+                .ToList();
+
             return mapper.Map<IEnumerable<OrderDTO>>(query);
         }
 

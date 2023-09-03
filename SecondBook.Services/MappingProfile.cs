@@ -18,6 +18,7 @@ namespace SecondBook.Services
             CreateMap<Category, CategoryDTO>();
             CreateMap<Author, AuthorDTO>();
             CreateMap<Order, OrderDTO>();
+            CreateMap<BookOrder, BookOrderDTO>();
 
         }
     }

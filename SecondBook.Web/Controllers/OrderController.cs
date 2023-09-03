@@ -24,7 +24,11 @@ namespace SecondBook.Web.Controllers
         [HttpPost]
         public IActionResult InsertOrder([FromBody] OrderBM model)
         {
-            orderService.InsertOrder(model);
+
+            if (!orderService.InsertOrder(model))
+            {
+                return BadRequest();
+            };
             return Ok();
         }
 
