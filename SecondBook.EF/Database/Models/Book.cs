@@ -13,5 +13,6 @@
         public Category? Category { get; set; }
         public Author? Author { get; set; }
         public ICollection<Order>? Orders { get; set; }
+        public ICollection<BookOrder> BookOrders { get; set; }
     }
 }

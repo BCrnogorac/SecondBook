@@ -6,6 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { filter } from 'rxjs';
 import { BookService } from 'src/app/services/book.service';
 import { BookDto } from 'src/app/models/DTO/bookDto.model';
+import { Order } from 'src/app/models/order.model';
 
 @Component({
   selector: 'app-header',
@@ -78,14 +79,14 @@ export class HeaderComponent implements OnInit {
   }
 
   checkCartNumber() {
-    let cart: BookDto[] = JSON.parse(localStorage.getItem('books'));
+    let cart: Order = JSON.parse(localStorage.getItem('order'));
 
-    this.cartNumber = cart == null ? 0 : cart.length;
+    this.cartNumber = cart == null ? 0 : cart.bookOrders.length;
 
     this.bookService.booksInCart.next(cart);
 
     this.bookService.booksInCart.subscribe((response) => {
-      this.cartNumber = response == null ? 0 : response.length;
+      this.cartNumber = response == null ? 0 : response.bookOrders.length;
     });
 
     if (this.cartNumber == null || undefined) {

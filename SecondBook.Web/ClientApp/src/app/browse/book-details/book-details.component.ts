@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { BookOrderBM } from 'src/app/models/BM/bookorderBM.model';
+import { OrderBM } from 'src/app/models/BM/orderBM.model';
 import { BookDto } from 'src/app/models/DTO/bookDto.model';
+import { BookOrder } from 'src/app/models/bookOrder.model';
+import { Order } from 'src/app/models/order.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { BookService } from 'src/app/services/book.service';
 
 @Component({
@@ -13,15 +18,16 @@ export class BookDetailsComponent implements OnInit {
 
   public book: BookDto = null;
   public cartBooks: BookDto[] = [];
+  public order: Order = new Order(null, null);
 
   public isInCart: boolean = false;
 
   public hasEnoughBookQuantity: boolean;
 
   constructor(
-    private route: ActivatedRoute,
     private bookService: BookService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -43,29 +49,28 @@ export class BookDetailsComponent implements OnInit {
   }
 
   onAddToCart(book: BookDto) {
-    this.cartBooks = JSON.parse(localStorage.getItem('books'));
+    this.order = JSON.parse(localStorage.getItem('order'));
 
-    if (this.cartBooks == null) {
-      this.cartBooks = [];
+    if (this.order == null) {
+      this.order = new Order(this.authService.user.value.id, []);
     }
 
-    this.cartBooks.push(book);
+    this.order.bookOrders.push(new BookOrder(book, 1));
 
-    localStorage.setItem('books', JSON.stringify(this.cartBooks));
+    localStorage.setItem('order', JSON.stringify(this.order));
 
-    if (this.cartBooks?.find((e) => e.id === book.id) != null) {
+    if (this.order?.bookOrders.find((e) => e.book.id === book.id) != null) {
       this.isInCart = true;
     } else {
       this.isInCart = false;
     }
-
-    this.bookService.booksInCart.next(this.cartBooks);
+    this.bookService.booksInCart.next(this.order);
   }
 
   checkCart() {
-    this.cartBooks = JSON.parse(localStorage.getItem('books'));
+    this.order = JSON.parse(localStorage.getItem('order'));
 
-    if (this.cartBooks?.find((e) => e.id === this.bookId) != null) {
+    if (this.order?.bookOrders.find((e) => e.book.id === this.bookId) != null) {
       this.isInCart = true;
     } else {
       this.isInCart = false;

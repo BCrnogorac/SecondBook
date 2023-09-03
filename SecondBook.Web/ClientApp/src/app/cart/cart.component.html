@@ -7,6 +7,8 @@
     margin-bottom: 20px;
     display: flex;
     align-items: baseline;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   "
 >
   <ul
@@ -43,7 +45,28 @@
         </nz-list-item-action>
       </ul>
       <div>
-        <img [src]="book.imageUrl" style="width: 50px; margin-right: 10px" />
+        <a
+          nz-icon
+          nzType="minus-circle"
+          nzTheme="outline"
+          style="margin-right: 10px; font-size: 18px; color: gray"
+          (click)="onSubstractBookOrderQuantity(book.id)"
+        ></a>
+        <span style="font-size: 16px; font-weight: bold; color: gray"
+          >x{{ returnBookQuantity(book.id) }}</span
+        >
+        <a
+          nz-icon
+          nzType="plus-circle"
+          nzTheme="outline"
+          nzStyle
+          style="margin-left: 10px; font-size: 18px; color: gray"
+          (click)="onAddBookOrderQuantity(book.id)"
+        ></a>
+        <img
+          [src]="book.imageUrl"
+          style="width: 50px; margin-right: 10px; margin-left: 10px"
+        />
         <span style="font-weight: bold"
           >{{ book?.name }}:
           <span style="font-weight: lighter">
@@ -52,9 +75,19 @@
         </span>
       </div>
     </li>
+
     <nz-list-footer style="display: flex; justify-content: space-between">
       <span>Total price:</span>
-      <span>{{ totalPrice }}€</span>
+      <span style="font-weight: bold">{{ totalPrice }}€</span>
     </nz-list-footer>
   </ul>
+  <button
+    nz-button
+    nzType="primary"
+    style="margin-right: 300px; margin-top: 15px"
+    (click)="onOrderNow()"
+    [disabled]="shouldBeDisabled"
+  >
+    Order Now
+  </button>
 </div>

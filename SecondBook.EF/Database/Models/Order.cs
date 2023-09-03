@@ -14,5 +14,6 @@ namespace SecondBook.EF.Database.Models
         public int? UserId { get; set; }
         public User? User { get; set; }
         public ICollection<Book>? Books { get; set; } = new List<Book>();
+        public List<BookOrder> BookOrders { get; set; }
     }
 }

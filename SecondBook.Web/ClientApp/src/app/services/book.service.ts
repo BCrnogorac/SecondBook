@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { BookBM } from '../models/BM/bookBM.model';
 import { BookDto } from '../models/DTO/bookDto.model';
+import { Order } from '../models/order.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { BookDto } from '../models/DTO/bookDto.model';
 export class BookService {
   private serviceBaseUrl = '';
 
-  public booksInCart = new BehaviorSubject<BookDto[] | null>(null);
+  public booksInCart = new BehaviorSubject<Order | null>(null);
 
   constructor(
     public http: HttpClient,

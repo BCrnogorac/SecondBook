@@ -1,1 +1,40 @@
-<p>profile works!</p>
+<div
+  style="
+    margin-top: 80px;
+    margin-left: 140px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: top;
+  "
+>
+  <img
+    nz-image
+    width="350px"
+    height="350px"
+    src="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg"
+    alt=""
+  />
+
+  <div>
+    <h1 style="margin-top: 50px; margin-left: 100px">
+      {{ user?.name }}
+    </h1>
+
+    <h3 style="margin-left: 100px; margin-bottom: 20px">My Orders</h3>
+
+    <!--
+    <nz-card style="width: 800px; margin-left: 100px; margin-bottom: 20px">
+      <p>{{ book?.description }}</p>
+    </nz-card>
+
+    <button
+      nz-button
+      nzType="dashed"
+      [disabled]="!hasEnoughBookQuantity || isInCart"
+      style="width: 800px; margin-left: 100px; margin-bottom: 20px"
+      (click)="onAddToCart(book)"
+    >
+      {{ !isInCart ? "Add to cart" : "Added to cart!" }}
+    </button> -->
+  </div>
+</div>

@@ -11,6 +11,6 @@ namespace SecondBook.Services.Models.BM
     public class OrderBM
     {
         public int UserId { get; set; }
-        public ICollection<int> BookIds { get; set; }
+        public ICollection<BookOrderBM> BookOrders { get; set; }
     }
 }

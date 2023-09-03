@@ -10,6 +10,7 @@ namespace SecondBook.EF.Database
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<BookOrder> BookOrders { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,7 +39,10 @@ namespace SecondBook.EF.Database
 
             modelBuilder.Entity<Book>()
                 .HasMany(e => e.Orders)
-                .WithMany(e => e.Books);
+                .WithMany(e => e.Books)
+                .UsingEntity<BookOrder>();
+
+
         }
     }
 }

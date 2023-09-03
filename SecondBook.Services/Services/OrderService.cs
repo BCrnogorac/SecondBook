@@ -20,7 +20,8 @@ namespace SecondBook.Services.Services
 
         public void InsertOrder(OrderBM model)
         {
-            var books = dbContext.Books.Where(x => model.BookIds.Contains(x.Id)).ToList();
+            var bookIds = model.BookOrders.Select(bo => bo.BookID).ToList();
+            var books = dbContext.Books.Where(x => bookIds.Contains(x.Id)).ToList();
 
             if (model == null || books.Count == 0)
             {
@@ -28,13 +29,20 @@ namespace SecondBook.Services.Services
             }
             decimal totalPrice = books.Sum(book => book.Price);
 
+            var bookOrders = model.BookOrders.Select(b => new BookOrder()
+            {
+                BookId = b.BookID,
+                Quantity = b.Quantity
+            }).ToList();
+
             var orderModel = new Order()
             {
                 UserId = model.UserId,
-                Books = books,
                 CreatedDate = DateTime.UtcNow,
-                Price = totalPrice
+                Price = totalPrice,
+                BookOrders = bookOrders
             };
+
             dbContext.Orders.Add(orderModel);
             dbContext.SaveChanges();
         }

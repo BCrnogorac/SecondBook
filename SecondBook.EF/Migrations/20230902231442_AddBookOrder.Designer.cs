@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SecondBook.EF.Database;
 
@@ -11,9 +12,11 @@ using SecondBook.EF.Database;
 namespace SecondBook.EF.Migrations
 {
     [DbContext(typeof(SecondBookDBContext))]
-    partial class SecondBookDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230902231442_AddBookOrder")]
+    partial class AddBookOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
