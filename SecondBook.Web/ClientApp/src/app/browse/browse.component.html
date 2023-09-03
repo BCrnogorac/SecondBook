@@ -1,7 +1,15 @@
-<h2 style="margin-top: 50px; margin-left: 100px; margin-bottom: 20px">
+<h2
+  style="
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #b55b53;
+  "
+>
   Browse SecondBooks.
 </h2>
-
+<nz-divider></nz-divider>
 <div
   style="
     margin-top: 20px;
@@ -47,29 +55,32 @@
   </nz-select>
 </div>
 
-<div
-  style="
-    display: flex;
-    justify-content: left;
-    margin-left: 140px;
-    margin-right: 130px;
-    margin-top: 80px;
-    flex-wrap: wrap;
-  "
->
-  <nz-card
-    *ngFor="let book of books"
-    nzHoverable
-    style="width: 200px; margin-right: 20px; margin-top: 20px"
-    [nzCover]="coverTemplate"
-    routerLink="/browse/book-details/{{ book.id }}"
+<div style="background-color: #f9f6ec">
+  <div
+    style="
+      display: flex;
+      justify-content: left;
+      margin-left: 140px;
+      margin-right: 130px;
+      margin-top: 80px;
+      flex-wrap: wrap;
+    "
   >
-    <ng-template #coverTemplate>
-      <img alt="example" [src]="book.imageUrl" style="height: 250px" />
-    </ng-template>
+    <nz-card
+      *ngFor="let book of books"
+      nzHoverable
+      style="width: 200px; margin-right: 20px; margin-top: 20px"
+      [nzCover]="coverTemplate"
+      routerLink="/browse/book-details/{{ book.id }}"
+    >
+      <ng-template #coverTemplate>
+        <img alt="example" [src]="book.imageUrl" style="height: 250px" />
+      </ng-template>
 
-    <nz-card-meta [nzTitle]="book.name"></nz-card-meta>
-    <p>{{ book.author.name }}</p>
-    <p>{{ book.price }} €</p>
-  </nz-card>
+      <nz-card-meta [nzTitle]="book.name"></nz-card-meta>
+      <p>{{ book.author.name }}</p>
+      <p>{{ book.price }} €</p>
+    </nz-card>
+  </div>
 </div>
+<br /><br />

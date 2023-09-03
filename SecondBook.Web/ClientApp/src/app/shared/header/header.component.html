@@ -1,12 +1,17 @@
-<ul nz-menu nzMode="horizontal" style="background-color: #dbd9db">
-  <span style="margin-left: 10px">SecondBook</span>
+<ul nz-menu nzMode="horizontal" style="background-color: #b55b53; color: white">
+  <img src="https://i.imgur.com/fZpY0Zd.png" style="height: 30px" />
 
   <li routerLink="/home" nz-menu-item [nzSelected]="homeRoute">
     <span nz-icon nzType="home" nzTheme="outline"></span>
     Home
   </li>
 
-  <li routerLink="/browse" nz-menu-item [nzSelected]="browseRoute">
+  <li
+    routerLink="/browse"
+    nz-menu-item
+    [nzSelected]="browseRoute"
+    *ngIf="isAuthed"
+  >
     <span nz-icon nzType="search" nzTheme="outline"></span>
     Browse
   </li>
@@ -63,7 +68,9 @@
   >
     <ul>
       <li routerLink="/profile" nz-menu-item>Account</li>
-      <li routerLink="/admin-dashboard" nz-menu-item>Admin Dashboard</li>
+      <li routerLink="/admin-dashboard" nz-menu-item *ngIf="adminRole">
+        Admin Dashboard
+      </li>
 
       <nz-divider></nz-divider>
       <li nz-menu-item (click)="logout()">Logout</li>
@@ -73,13 +80,18 @@
   <li
     routerLink="/cart"
     nz-menu-item
-    style="float: right"
+    style="float: right; color: white"
     *ngIf="isAuthed"
     [nzSelected]="cartRoute"
   >
     <nz-badge [nzCount]="cartNumber" nzSize="small">
-      <span nz-icon nzType="shopping-cart" nzTheme="outline"></span>
-      Cart
+      <span
+        nz-icon
+        nzType="shopping-cart"
+        nzTheme="outline"
+        style="color: white"
+      ></span>
+      <span style="color: white; margin-left: -1px"> Cart</span>
       <span></span>
     </nz-badge>
   </li>

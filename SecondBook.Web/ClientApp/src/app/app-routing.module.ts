@@ -8,6 +8,7 @@ import { ProfileComponent } from './account/profile/profile.component';
 import { AdminDashboardComponent } from './account/admin-dashboard/admin-dashboard.component';
 import { BookDetailsComponent } from './browse/book-details/book-details.component';
 import { CartComponent } from './cart/cart.component';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -20,11 +21,20 @@ const routes: Routes = [
   {
     path: 'browse',
     component: BrowseComponent,
+    canActivate: [AuthGuard],
   },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'admin-dashboard', component: AdminDashboardComponent },
-  { path: 'browse/book-details/:id', component: BookDetailsComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'browse/book-details/:id',
+    component: BookDetailsComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

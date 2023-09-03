@@ -1,4 +1,14 @@
-<h2 style="margin-top: 50px; margin-left: 100px; margin-bottom: 20px">Cart</h2>
+<h2
+  style="
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #b55b53;
+  "
+>
+  Cart
+</h2>
 
 <div
   style="
@@ -16,7 +26,7 @@
     [nzDataSource]="books"
     nzBordered
     nzSize="large"
-    style="width: 100%; margin-right: 300px"
+    style="width: 100%; margin-right: 300px; background-color: #f9f6ec"
   >
     <li nz-list-item *ngFor="let book of books">
       <ul nz-list-item-actions>
@@ -31,7 +41,7 @@
             (nzOnConfirm)="removeBookFromCart(book)"
             (nzOnCancel)="cancel()"
             nz-button
-            nzType="primary"
+            nzType="default"
             nzShape="circle"
             style="margin-top: -10px; margin-left: 20px"
           >
@@ -83,7 +93,7 @@
   </ul>
   <button
     nz-button
-    nzType="primary"
+    nzType="default"
     style="margin-right: 300px; margin-top: 15px"
     (click)="onOrderNow()"
     [disabled]="shouldBeDisabled"

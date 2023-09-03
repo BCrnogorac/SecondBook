@@ -5,22 +5,26 @@
     margin-bottom: 20px;
     display: flex;
     align-items: top;
+    background-color: #f0e9d0;
+    width: 80%;
   "
 >
   <img
     nz-image
     width="350px"
     height="350px"
-    src="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg"
+    src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
     alt=""
   />
 
   <div style="display: flex; flex-direction: column; align-items: baseline">
-    <h1 style="margin-top: 50px; margin-left: 100px">
+    <h1 style="margin-top: 50px; margin-left: 100px; color: #b55b53">
       {{ user?.name }}
     </h1>
 
-    <h3 style="margin-left: 100px; margin-bottom: 20px">My Orders</h3>
+    <h3 style="margin-left: 100px; margin-bottom: 20px; color: #b55b53">
+      My Orders
+    </h3>
 
     <nz-select
       nzShowSearch
@@ -28,7 +32,7 @@
       nzPlaceHolder="Select an order to see details"
       [(ngModel)]="selectedOrder"
       (ngModelChange)="onOrderClicked(selectedOrder)"
-      style="width: 500px"
+      style="width: 500px; background-color: #f9f6ec"
     >
       <nz-option
         *ngFor="let order of orders"
@@ -38,6 +42,7 @@
     </nz-select>
 
     <div
+      *ngIf="selectedOrder"
       style="
         margin-top: 20px;
         margin-left: 140px;
@@ -54,7 +59,7 @@
         [nzDataSource]="books"
         nzBordered
         nzSize="large"
-        style="width: 100%; margin-right: 300px"
+        style="width: 100%; margin-right: 300px; background-color: #f9f6ec"
       >
         <li nz-list-item *ngFor="let book of books">
           <ul nz-list-item-actions>

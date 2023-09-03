@@ -2,7 +2,7 @@
   text-align: center;
   height: 100px;
   line-height: 160px;
-  background: black;
+  background: #f9f6ec;
   color: black;
   overflow: hidden;
 }
@@ -15,4 +15,12 @@ h3 {
 ::ng-deep .ant-card-meta-title {
   margin-bottom: 10px;
   white-space: normal;
+}
+
+::ng-deep .ant-carousel .slick-dots li {
+  background-color: #b55b53;
+}
+
+::ng-deep .ant-carousel .slick-dots li.slick-active button {
+  background-color: #9f4834;
 }

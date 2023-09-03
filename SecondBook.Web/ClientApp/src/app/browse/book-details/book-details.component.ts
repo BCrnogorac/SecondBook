@@ -40,8 +40,6 @@ export class BookDetailsComponent implements OnInit {
       this.getBookById(this.bookId);
       this.checkCart();
     });
-
-    //this.bookId = +this.router.url.split('?')[0].split('/').pop();
   }
 
   getBookById(bookId: number) {

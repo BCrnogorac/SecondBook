@@ -3,8 +3,10 @@
     margin-top: 80px;
     margin-left: 140px;
     margin-bottom: 20px;
+    margin-right: 140px;
     display: flex;
     align-items: top;
+    background-color: #f0e9d0;
   "
 >
   <img
@@ -14,7 +16,7 @@
     src="{{ book?.imageUrl }}"
     alt=""
   />
-  <div>
+  <div style="width: 70%">
     <h1 style="margin-top: 50px; margin-left: 100px">
       {{ book?.name }}
     </h1>
@@ -29,24 +31,29 @@
       </h2>
     </div>
 
-    <nz-card style="width: 800px; margin-left: 100px; margin-bottom: 20px">
+    <nz-card
+      style="margin-left: 100px; margin-bottom: 20px; background-color: #f9f6ec"
+    >
       <p>{{ book?.description }}</p>
     </nz-card>
 
-    <button
-      nz-button
-      nzType="dashed"
-      [disabled]="!hasEnoughBookQuantity || isInCart"
-      style="width: 800px; margin-left: 100px; margin-bottom: 20px"
-      (click)="onAddToCart(book)"
-    >
-      {{
-        !hasEnoughBookQuantity
-          ? "Out of stock"
-          : !isInCart
-          ? "Add to cart"
-          : "Added to cart!"
-      }}
-    </button>
+    <div style="margin-left: 100px">
+      <button
+        nz-button
+        nzBlock
+        nzType="dashed"
+        [disabled]="!hasEnoughBookQuantity || isInCart"
+        style="margin-bottom: 20px; background-color: #f9f6ec"
+        (click)="onAddToCart(book)"
+      >
+        {{
+          !hasEnoughBookQuantity
+            ? "Out of stock"
+            : !isInCart
+            ? "Add to cart"
+            : "Added to cart!"
+        }}
+      </button>
+    </div>
   </div>
 </div>
