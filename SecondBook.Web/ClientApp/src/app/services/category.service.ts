@@ -25,4 +25,12 @@ export class CategoryService {
   getCategories(): Observable<CategoryDto[]> {
     return this.http.get<CategoryDto[]>(`${this.serviceBaseUrl}`);
   }
+
+  deleteCategoryById(categoryId: number): Observable<void> {
+    return this.http.delete<void>(`${this.serviceBaseUrl}/${categoryId}`);
+  }
+
+  editCategory(category: CategoryDto): Observable<CategoryDto> {
+    return this.http.put<CategoryDto>(`${this.serviceBaseUrl}`, category);
+  }
 }

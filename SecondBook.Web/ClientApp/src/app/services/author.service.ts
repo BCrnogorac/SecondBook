@@ -25,4 +25,12 @@ export class AuthorService {
   getAuthors(): Observable<AuthorDto[]> {
     return this.http.get<AuthorDto[]>(`${this.serviceBaseUrl}`);
   }
+
+  deleteAuthorById(authorId: number): Observable<void> {
+    return this.http.delete<void>(`${this.serviceBaseUrl}/${authorId}`);
+  }
+
+  editAuthor(author: AuthorDto): Observable<AuthorDto> {
+    return this.http.put<AuthorDto>(`${this.serviceBaseUrl}`, author);
+  }
 }

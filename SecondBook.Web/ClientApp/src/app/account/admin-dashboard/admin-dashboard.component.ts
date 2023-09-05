@@ -27,8 +27,12 @@ export class AdminDashboardComponent implements OnInit {
   public books: BookDto[];
 
   public isBookEditMode: boolean = false;
+  public isAuthorEditMode: boolean = false;
+  public isCategoryEditMode: boolean = false;
 
   public currentEditBook: BookDto;
+  public currentEditAuthor: AuthorDto;
+  public currentEditCategory: CategoryDto;
 
   constructor(
     private fb: FormBuilder,
@@ -73,31 +77,56 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   submitAuthorForm() {
-    let formModel: AuthorBM = this.authorFormGroup.getRawValue();
+    if (this.isAuthorEditMode != true) {
+      let formModel: AuthorBM = this.authorFormGroup.getRawValue();
 
-    if (this.authorFormGroup.valid) {
-      this.authorService.insertAuthor(formModel).subscribe((repsonse) => {
-        this.initAuthorForm();
-        this.getAuthors();
-        this.notification.blank(
-          'Added Author!',
-          `You have added author ${formModel.name}.`
-        );
-      });
+      if (this.authorFormGroup.valid) {
+        this.authorService.insertAuthor(formModel).subscribe((repsonse) => {
+          this.initAuthorForm();
+          this.getAuthors();
+          this.notification.blank(
+            'Added Author!',
+            `You have added author ${formModel.name}.`
+          );
+        });
+      } else {
+        Object.values(this.authorFormGroup.controls).forEach((control) => {
+          if (control.invalid) {
+            control.markAsDirty();
+            control.updateValueAndValidity({ onlySelf: true });
+          }
+        });
+      }
     } else {
-      Object.values(this.authorFormGroup.controls).forEach((control) => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
+      let formModelEdit: AuthorDto = this.authorFormGroup.getRawValue();
+
+      formModelEdit.id = this.currentEditAuthor.id;
+
+      if (this.authorFormGroup.valid) {
+        this.authorService.editAuthor(formModelEdit).subscribe((repsonse) => {
+          this.initAuthorForm();
+          this.getAuthors();
+          this.isAuthorEditMode = false;
+
+          this.notification.blank(
+            'Edited Author!',
+            `You have edited author ${formModelEdit.name}.`
+          );
+        });
+      } else {
+        Object.values(this.authorFormGroup.controls).forEach((control) => {
+          if (control.invalid) {
+            control.markAsDirty();
+            control.updateValueAndValidity({ onlySelf: true });
+          }
+        });
+      }
     }
   }
 
   submitBookForm() {
     if (this.isBookEditMode != true) {
       let formModelInsert: BookBM = this.bookFormGroup.getRawValue();
-      console.log(formModelInsert);
 
       if (this.bookFormGroup.valid) {
         this.bookService.insertBook(formModelInsert).subscribe((repsonse) => {
@@ -135,7 +164,7 @@ export class AdminDashboardComponent implements OnInit {
           );
         });
       } else {
-        Object.values(this.authorFormGroup.controls).forEach((control) => {
+        Object.values(this.bookFormGroup.controls).forEach((control) => {
           if (control.invalid) {
             control.markAsDirty();
             control.updateValueAndValidity({ onlySelf: true });
@@ -146,24 +175,52 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   submitCategoryForm() {
-    let formModel: CategoryBM = this.categoryFormGroup.getRawValue();
+    if (this.isCategoryEditMode != true) {
+      let formModel: CategoryBM = this.categoryFormGroup.getRawValue();
 
-    if (this.categoryFormGroup.valid) {
-      this.categoryService.insertCategory(formModel).subscribe((repsonse) => {
-        this.initCategoryForm();
-        this.getCategories();
-        this.notification.blank(
-          'Added Category!',
-          `You have added category ${formModel.name}.`
-        );
-      });
+      if (this.categoryFormGroup.valid) {
+        this.categoryService.insertCategory(formModel).subscribe((repsonse) => {
+          this.initCategoryForm();
+          this.getCategories();
+          this.notification.blank(
+            'Added Category!',
+            `You have added category ${formModel.name}.`
+          );
+        });
+      } else {
+        Object.values(this.categoryFormGroup.controls).forEach((control) => {
+          if (control.invalid) {
+            control.markAsDirty();
+            control.updateValueAndValidity({ onlySelf: true });
+          }
+        });
+      }
     } else {
-      Object.values(this.categoryFormGroup.controls).forEach((control) => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
+      let formModelEdit: CategoryDto = this.categoryFormGroup.getRawValue();
+
+      formModelEdit.id = this.currentEditCategory.id;
+
+      if (this.categoryFormGroup.valid) {
+        this.categoryService
+          .editCategory(formModelEdit)
+          .subscribe((repsonse) => {
+            this.initCategoryForm();
+            this.getCategories();
+            this.isCategoryEditMode = false;
+
+            this.notification.blank(
+              'Edited Category!',
+              `You have edited category ${formModelEdit.name}.`
+            );
+          });
+      } else {
+        Object.values(this.categoryFormGroup.controls).forEach((control) => {
+          if (control.invalid) {
+            control.markAsDirty();
+            control.updateValueAndValidity({ onlySelf: true });
+          }
+        });
+      }
     }
   }
 
@@ -187,9 +244,25 @@ export class AdminDashboardComponent implements OnInit {
 
   cancel(): void {}
 
-  deleteAuthor(author: AuthorDto) {}
+  deleteAuthor(author: AuthorDto) {
+    this.authorService.deleteAuthorById(author.id).subscribe((response) => {
+      this.nzMessageService.success(
+        `Deleted author ${author.name} successfully.`
+      );
+      this.getAuthors();
+    });
+  }
 
-  deleteCategory(category: CategoryDto) {}
+  deleteCategory(category: CategoryDto) {
+    this.categoryService
+      .deleteCategoryById(category.id)
+      .subscribe((response) => {
+        this.nzMessageService.success(
+          `Deleted category ${category.name} successfully.`
+        );
+        this.getCategories();
+      });
+  }
 
   deleteBook(book: BookDto) {
     this.bookService.deleteBookById(book.id).subscribe((response) => {
@@ -211,5 +284,33 @@ export class AdminDashboardComponent implements OnInit {
 
     this.isBookEditMode = true;
     this.currentEditBook = book;
+  }
+
+  editAuthor(author: AuthorDto) {
+    this.authors.splice(
+      this.authors.findIndex((e) => e.id === author.id),
+      1
+    );
+
+    this.authorFormGroup = this.fb.group({
+      name: [author.name, [Validators.required]],
+    });
+
+    this.isAuthorEditMode = true;
+    this.currentEditAuthor = author;
+  }
+
+  editCategory(category: CategoryDto) {
+    this.categories.splice(
+      this.categories.findIndex((e) => e.id === category.id),
+      1
+    );
+
+    this.categoryFormGroup = this.fb.group({
+      name: [category.name, [Validators.required]],
+    });
+
+    this.isCategoryEditMode = true;
+    this.currentEditCategory = category;
   }
 }
